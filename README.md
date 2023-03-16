@@ -10,11 +10,11 @@ GPTgo est une extension chrome destinée à permettre l'utilisation de chatGPT c
 
 N'hésitez pas à faire remonter les bugs que vous rencontrerez !
 
-* Quelques suggestions de pré-prompts : *
+**Quelques suggestions de pré-prompts :**
 
-"Fais-moi un commentaire sarcastique sur la phrase suivante :"
-"Rédige une réponse polie pour décliner l'invitation suivante :"
-"Explique-moi la phrase suivante comme si j'avais cinq ans :"
-"Traduis-moi la phrase suivante en anglais :"
-"Reformule le passage suivant avec un style plus correct et plus agréable :"
+* "Fais-moi un commentaire sarcastique sur la phrase suivante :"
+* "Rédige une réponse polie pour décliner l'invitation suivante :"
+* "Explique-moi la phrase suivante comme si j'avais cinq ans :"
+* "Traduis-moi la phrase suivante en anglais :"
+* "Reformule le passage suivant avec un style plus correct et plus agréable :"
 

@@ -1,7 +1,9 @@
 document.addEventListener("DOMContentLoaded", (event) => {
     var prompt = document.cookie.split(';')[0].split('=')[1];
    // console.log(prompt);
-    document.getElementById("prompt").value = decodeURIComponent(prompt);
+   document.getElementById("prompt").value = (decodeURIComponent(prompt) == "undefined") ? "" : decodeURIComponent(prompt);
+   // document.getElementById("prompt").value = decodeURIComponent(prompt);
+
 
     document.getElementById("bouton").addEventListener("click", () => {
         //document.getElementById("titre").innerHTML = "Meuh";
@@ -17,7 +19,10 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
 
     document.getElementById("prompt").addEventListener("change", () => {
-        document.cookie = "prompt=" + encodeURIComponent(document.getElementById("prompt").value);
+        // Définir la date d'expiration dans 1 an
+        let dateExpiration = new Date();
+        dateExpiration.setTime(dateExpiration.getTime() + (365 * 24 * 60 * 60 * 1000));
+        document.cookie = "prompt=" + encodeURIComponent(document.getElementById("prompt").value) + ";expires=" + dateExpiration.toUTCString();
        // console.log (document.cookie);
     });
 //    
@@ -39,12 +44,9 @@ chrome.runtime.onMessage.addListener((request) => {
 
             break;
         case 4: // on a reçu la réponse de chatgpt
-            //console.log ("Réponse de ChatGPT", request.Message);
-            //console.log("phase 5 dans le popup");
             document.getElementById("outputGPT").value = request.Message;
             break;
         case 5:
-            alert ("case 5 !");
             document.getElementById("outputGPT").value = request.Message;
             document.getElementById("info").innerHTML = "Réponse terminée !";
             break;

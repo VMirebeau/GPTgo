@@ -2,8 +2,6 @@ document.addEventListener("DOMContentLoaded", (event) => {
     var prompt = document.cookie.split(';')[0].split('=')[1];
    // console.log(prompt);
    document.getElementById("prompt").value = (decodeURIComponent(prompt) == "undefined") ? "" : decodeURIComponent(prompt);
-   // document.getElementById("prompt").value = decodeURIComponent(prompt);
-
 
     document.getElementById("bouton").addEventListener("click", () => {
         //document.getElementById("titre").innerHTML = "Meuh";

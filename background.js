@@ -23,6 +23,17 @@ chrome.runtime.onMessage.addListener(async request => {
 				break;
 			//case 4: géré directement par le popup.htm
 			//	break;
+			case -1: // Il y a une erreur sur la page ChatGPT
+				console.log("case -1");
+				chrome.tabs.query({url: "https://chat.openai.com/chat*"}, tabGPT => {	//on récupère l'id de l'onglet chatgpt
+					console.log(tabGPT[0]);
+					chrome.tabs.update(tabGPT[0].id, { active: true });	// on le rend actif pour que l'utilisateur voie l'erreur
+					chrome.windows.update(tabGPT[0].windowId, {focused: true}, function(window) {
+						console.log('La fenêtre a été mise à jour :', window);
+					  });
+				});
+				break;
+				
 		}
 
 

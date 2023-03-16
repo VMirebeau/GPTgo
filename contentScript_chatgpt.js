@@ -3,11 +3,23 @@ const OCCUPE = 1;
 var etatGPT = DISPO;
 
 function askGPT(texte) {
-	if (isThinking()) {
-		console.log ("ChatGPT n'est pas prêt !");
-	} else { // on envoie la requête
-		document.getElementsByTagName("textarea")[0].value=texte; //forcer texte
-		document.getElementsByClassName("absolute p-1")[0].click(); // valider requête
+	if (document.getElementsByTagName("textarea")[0] != null) {
+		if (isThinking()) {
+			console.log ("ChatGPT n'est pas prêt !");
+			return false;
+		} else { // on envoie la requête
+			console.log(document.getElementsByTagName("textarea")[0]);
+			document.getElementsByTagName("textarea")[0].value=texte; //forcer texte
+			document.getElementsByClassName("absolute p-1")[0].click(); // valider requête
+			return true;
+		}
+	} else {	// Si il y a une erreur sur la page (pas de zone de texte)
+		console.log("On passe par ici");
+		chrome.runtime.sendMessage({ // dernière phase, on envoie la réponse finale de chatgpt
+			Phase  : -1,
+			Message : "Erreur sur la page ChatGPT. Veuillez vous reconnecter."
+		});
+		return false;
 	}
 }
 
@@ -45,9 +57,10 @@ chrome.runtime.onMessage.addListener((request) => {
 	// On montre le message
 	if (request.Phase == 3) { // normalement, ça ne peut être que ça : on a envoyé le prompt, on attend la réponse
 		console.log("phase 3");
-		askGPT(request.Message); // on demande à GPT en forçant le message
-		console.log("Requête envoyée :", request.Message);
-		renvoyerActuel();
+		if (askGPT(request.Message)) {	// si tout se passe bien quand on envoie la requête
+			console.log("Requête envoyée :", request.Message);
+			renvoyerActuel();
+		} // on demande à GPT en forçant le message
 	}
 
 

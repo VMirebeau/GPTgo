@@ -1,0 +1,31 @@
+{
+    "name" : "GPTgo",
+    "version": "1.0.0",
+    "manifest_version": 3,
+    "description" : "Communiquer avec chatGPT",
+    "icons": {
+        "128": "icon.png"
+    },
+    "background": {
+        "service_worker" : "Background.js"
+    },
+    "action": {
+        "default_popup": "popup.htm"
+    },
+    "content_scripts": [
+        {
+          "matches": ["https://chat.openai.com/chat"],
+          "js": ["contentScript_chatgpt.js"]
+        },
+        {
+          "matches": ["<all_urls>"],
+          "js": ["tabcontent.js"]
+        }
+    ],
+    "permissions":[
+        "tabs",
+        "storage",
+        "cookies"
+    ],
+    "host_permissions": [ "<all_urls>"]
+}

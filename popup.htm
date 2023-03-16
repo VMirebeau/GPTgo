@@ -1,0 +1,21 @@
+<HTML style="height:450px">
+    <HEAD>
+        <meta charset="utf-8">
+        <script type="text/javascript" src="popup.js"></script>
+    </HEAD>
+    <body style="height:450px; text-align:center">
+        <H1 id="titre">Envoyer vers ChatGPT</H1>
+        <div id="requete" style="display:inline">
+            <h4>Tapez ici le prompt qui doit précéder le texte sélectionné :</h4>
+            <textarea id="prompt" rows="10" cols="60" style="resize:none"></textarea>
+            Sélection reçue de la page active :
+            <textarea id="selectionInput" rows="10" cols="60" style="resize:none" readonly="readonly"></textarea>
+            <input type="button" id="bouton" value="Envoyer"/>
+        </div>
+        <div id="resultat" style="display:none">
+            <textarea id="outputGPT" rows="20" cols="60" style="resize:none" readonly="readonly"></textarea>
+            <span id="termine"></span>
+        </div>
+
+    </body>
+</HTML>

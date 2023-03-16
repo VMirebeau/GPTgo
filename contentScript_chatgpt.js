@@ -15,6 +15,31 @@ function isThinking() { // si chatGPT est en train de réfléchir
     return (document.getElementsByTagName("polygon").length < 1);
 }
 
+function renvoyerActuel() {
+	let texte = "";
+	let newtext = "";
+	//let Phase = 4;
+	var interval = setInterval(function(){
+		newtext = document.querySelectorAll(".group.w-full")[document.querySelectorAll(".group.w-full").length -1].innerText;
+		if (newtext != texte) {
+			chrome.runtime.sendMessage({ // dernière phase, on envoie la réponse finale de chatgpt
+				Phase  : 4,
+				Message : newtext + "▮"
+			})
+			texte = newtext;
+		}
+		//console.log(isThinking());
+		if (!(isThinking()))
+		{
+			clearInterval(interval);
+			//console.log("on passe en phase 5 !");
+			chrome.runtime.sendMessage({ // dernière phase, on envoie la réponse finale de chatgpt
+				Phase  : 5,
+				Message : newtext
+			})
+		}
+	}, 200);
+}
 
 // On écoute les messages venant du background
 chrome.runtime.onMessage.addListener((request) => {
@@ -22,29 +47,33 @@ chrome.runtime.onMessage.addListener((request) => {
 	// On montre le message
 	if (request.Phase == 3) { // normalement, ça ne peut être que ça : on a envoyé le prompt, on attend la réponse
 		console.log("phase 3");
-		askGPT(request.Message); // on demander à GPT en forçant le message
+		askGPT(request.Message); // on demande à GPT en forçant le message
 		console.log("Requête envoyée :", request.Message);
+		renvoyerActuel();
 
 		// On envoie le message vers le background script
-		document.getElementsByClassName("absolute p-1")[0].addEventListener('DOMSubtreeModified', () => {
+		/*document.getElementsByClassName("absolute p-1")[0].addEventListener('DOMSubtreeModified', () => {
 			if (etatGPT == DISPO) {
 				if (isThinking()) { //console.log ("On commence à réfléchir")
 					etatGPT = OCCUPE;
+					renvoyerActuel();
 					//dessinerCercle("orange");
 				}
 			} else if (etatGPT == OCCUPE) {
+				console.log( "isThinking() = ",isThinking());
 				if (!(isThinking())) {
+					
 					etatGPT = DISPO;
-					//dessinerCercle("green");
+					console.log("phase 5");
 					var reponse = document.querySelectorAll(".group.w-full")[document.querySelectorAll(".group.w-full").length -1].innerText;
 					console.log (reponse);
 					chrome.runtime.sendMessage({ // dernière phase, on envoie la réponse finale de chatgpt
-						Phase  : 4,
+						Phase  : 5,
 						Message : reponse
 					})
 				}
 			}
-		});
+		});*/
 	}
 
 

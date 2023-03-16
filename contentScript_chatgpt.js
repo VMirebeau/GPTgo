@@ -1,7 +1,3 @@
-const DISPO = 0;
-const OCCUPE = 1;
-var etatGPT = DISPO;
-
 function askGPT(texte) {
 	if (document.getElementsByTagName("textarea")[0] != null) {
 		if (isThinking()) {
@@ -28,18 +24,13 @@ function isThinking() { // si chatGPT est en train de réfléchir
 }
 
 function renvoyerActuel() {
-	let texte = "";
 	let newtext = "";
 	var interval = setInterval(function(){
 		newtext = document.querySelectorAll(".group.w-full")[document.querySelectorAll(".group.w-full").length -1].innerText;
-		if (newtext != texte) {
-			chrome.runtime.sendMessage({ // dernière phase, on envoie la réponse finale de chatgpt
-				Phase  : 4,
-				Message : newtext + "▮"
-			})
-			texte = newtext;
-		}
-		//console.log(isThinking());
+		chrome.runtime.sendMessage({ // On envoie la réponse temporaire de ChatGPT
+			Phase  : 4,
+			Message : newtext + "▮"
+		});
 		if (!(isThinking()))
 		{
 			clearInterval(interval);
@@ -62,7 +53,5 @@ chrome.runtime.onMessage.addListener((request) => {
 			renvoyerActuel();
 		} // on demande à GPT en forçant le message
 	}
-
-
 })
 

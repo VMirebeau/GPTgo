@@ -12,18 +12,13 @@ document.addEventListener("DOMContentLoaded", (event) => {
             Phase  : 3,
             Message : document.getElementById("prompt").value + " " + selection
         })
-        
     });
-
-
     document.getElementById("prompt").addEventListener("change", () => {
         // Définir la date d'expiration dans 1 an
         let dateExpiration = new Date();
         dateExpiration.setTime(dateExpiration.getTime() + (365 * 24 * 60 * 60 * 1000));
         document.cookie = "prompt=" + encodeURIComponent(document.getElementById("prompt").value) + ";expires=" + dateExpiration.toUTCString();
-       // console.log (document.cookie);
-    });
-//    
+    }); 
 });
 
 chrome.runtime.sendMessage({ //au chargement, on essaie de récupérer la sélection
@@ -31,7 +26,6 @@ chrome.runtime.sendMessage({ //au chargement, on essaie de récupérer la sélec
 		Message : "getSelection"
 })
 var selection = "";
-// Listening for incoming Messages from the Background
 chrome.runtime.onMessage.addListener((request) => {
     //console.log (request.Message);
     switch (request.Phase) {
@@ -39,7 +33,6 @@ chrome.runtime.onMessage.addListener((request) => {
             selection = request.Message;
             document.getElementById("selectionInput").value = selection;
             console.log("Sélection :", selection);
-
             break;
         case 4: // on a reçu la réponse de chatgpt
             document.getElementById("outputGPT").value = request.Message;

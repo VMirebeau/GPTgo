@@ -32,11 +32,8 @@ chrome.runtime.onMessage.addListener(async request => {
 						console.log('La fenêtre a été mise à jour :', window);
 					  });
 				});
-				break;
-				
+				break;	
 		}
-
-
 	}
 })
 

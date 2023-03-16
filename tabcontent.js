@@ -1,4 +1,3 @@
-
 chrome.runtime.onMessage.addListener((request) => {
 	if (request.Phase == 1) // l'onglet popup nous demande quelle est la sélection
 	{

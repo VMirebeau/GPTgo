@@ -4,13 +4,12 @@ document.addEventListener("DOMContentLoaded", (event) => {
    document.getElementById("prompt").value = (decodeURIComponent(prompt) == "undefined") ? "" : decodeURIComponent(prompt);
 
     document.getElementById("bouton").addEventListener("click", () => {
-        //document.getElementById("titre").innerHTML = "Meuh";
         document.getElementById("requete").style.display = "none";
         document.getElementById("resultat").style.display = "inline";
         document.getElementById("info").innerHTML = "";
         chrome.runtime.sendMessage({
             Phase  : 3,
-            Message : document.getElementById("prompt").value + " " + selection
+            Message : document.getElementById("prompt").value + " " + document.getElementById("selectionInput").value // construction du prompt final
         })
     });
     document.getElementById("prompt").addEventListener("change", () => {

@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
         document.getElementById("info").innerHTML = "";
         chrome.runtime.sendMessage({
             Phase  : 3,
-            Message : document.getElementById("prompt").value + " " + selection
+            Message : document.getElementById("prompt").value + " " + document.getElementById("selectionInput").value
         })
     });
     document.getElementById("prompt").addEventListener("change", () => {

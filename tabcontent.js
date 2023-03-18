@@ -6,5 +6,5 @@ chrome.runtime.onMessage.addListener((request) => {
 			Message : window.getSelection().toString()
 		});
 	}
-	console.log("On nous a demandé la sélection :", window.getSelection().toString());
+	console.log("On nous a demandé la sélection :", window.getSelection().toString()); // sur certaines pages, cette fonction renvoie une chaîne vide, alors qu'on a bien sélectionné quelque chose. Je ne sais pas pourquoi. Je me demande si ce n'est pas lié à un problème de cache ?
 })

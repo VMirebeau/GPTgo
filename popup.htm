@@ -3,19 +3,23 @@
         <meta charset="utf-8">
         <script type="text/javascript" src="popup.js"></script>
         <link rel="stylesheet" href="popup.css">
+        <link rel="stylesheet" href="openai.css">
+        
     </HEAD>
     <body style="height:570px;width:480px; text-align:center">
-        <H2 id="titre">Envoyer vers ChatGPT</H2>
+        <H1 id="titre">GPTgo</H1>
         <div id="requete" style="display:inline">
-            <h4>Tapez ici le prompt qui doit précéder le texte sélectionné :</h4>
-            <textarea id="prompt" rows="10" cols="60" style="resize:none"></textarea><br>
-            Sélection reçue de la page active :<br>
-            <textarea id="selectionInput" rows="10" cols="60" style="resize:none"></textarea><br>
-            <br><input type="button" id="bouton" value="Envoyer"/>
+            <br>Tapez ici le prompt qui doit précéder le texte sélectionné :
+            <textarea id="prompt" rows="9" cols="60" style="resize:none"></textarea><br>
+            <br>Sélection reçue de la page active :<br>
+            <textarea id="selectionInput" rows="8" cols="60" style="resize:none"></textarea><br>
+            <br><input type="button" id="bouton" class="btn btn-neutral border-0 md:border" value="Envoyer"/>
         </div>
         <div id="resultat" style="display:none">
             <br>
-            <textarea id="outputGPT" rows="20" cols="60" style="resize:none" readonly="readonly"></textarea>
+            <textarea id="outputGPT" rows="22" cols="60" style="resize:none;height:423" readonly="readonly"></textarea><br><br>
+            <input type="button" id="arreter" class="btn btn-neutral border-0 md:border" value="Arrêter"/>
+            <input type="button" id="fermer" class="btn btn-neutral border-0 md:border" style="display:none" value="Fermer"/>
             <div id="info"></div>
         </div>
     </body>
